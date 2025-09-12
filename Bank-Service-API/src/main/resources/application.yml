@@ -1,0 +1,6 @@
+logging:
+  file:
+    path: D:/Practic-2025/Microservice-Architecture/ELK/ELK-Log
+  pattern:
+    level: d{yyyy-MM-dd HH:mm:ss} %-5level [%t] %c{1}:%L - %msg%n
+    
