@@ -1,6 +1,10 @@
 package com.customer.entiry;
 
+import com.customer.domain.CustomerStatus;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,6 +22,7 @@ public class Customer {
 	private String email;
 	private String phone;
 	private String address;
+	private String status;
 
 	// Constructors
 	public Customer() {
@@ -61,6 +66,14 @@ public class Customer {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }
