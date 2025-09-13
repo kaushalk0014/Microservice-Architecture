@@ -1,0 +1,31 @@
+Core Idea of Saga Choreography
+In Choreography, each microservice listens for events and reacts accordingly. There’s no central orchestrator and no direct HTTP calls between services during the saga flow.
+Instead:
+- Services publish events to a message broker (like Kafka or RabbitMQ).
+- Other services subscribe to those events and perform their local transactions.
+- If needed, they publish compensating events to undo actions in case of failure.
+
+✅ Why Not HTTP?
+- Loose Coupling: Services don’t depend on each other’s availability.
+- Resilience: Message brokers offer retries, durability, and buffering.
+- Scalability: Async event-driven systems scale better than synchronous HTTP chains.
+- Failure Isolation: One service failing doesn’t cascade through HTTP timeouts.
+
+🧪 Example Flow (Choreography)
+Let’s say you have:
+- OrderService
+- PaymentService
+- InventoryService
+Flow:
+- OrderService publishes OrderCreated event.
+- PaymentService listens and processes payment → publishes PaymentCompleted.
+- InventoryService listens and reserves stock → publishes StockReserved.
+No HTTP calls between these services—just event publishing and listening.
+
+⚠️ Exceptions
+While the saga itself avoids HTTP, you might still use HTTP:
+- At the API Gateway level to initiate the saga.
+- For external integrations (e.g., third-party payment).
+- In Orchestration-based sagas, where a central orchestrator (like Camunda or Axon) may use HTTP to invoke services.
+
+If you're designing microservices with Spring Boot, I can help you set up a Kafka-based choreography flow with proper event classes, listeners, and compensating actions. Want to dive into that next?
